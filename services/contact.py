@@ -27,6 +27,13 @@ def getContactos():
 def getContacto(id):
     result = {}
     contactos = Contact.query.get(id) #"Select from Contact"
+
+    #if id is not found
+    if not contactos:
+        result["status_cod"] = 400 #Status_code se envia como resultado del query para FrontEnd
+        result["status_msg"] = "ID does not exist"
+        return jsonify(result), 400
+    
     result["data"] = contactos
     result["status_cod"] = 200 #Status_code se envia como resultado del query para FrontEnd
     result["status_msg"] = "Contacts were recovery succesfully..."
